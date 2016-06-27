@@ -16,40 +16,62 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    FISStudent *ismael = [[FISStudent alloc]initWithName:@"Ismael" favoriteThings:@[@"chia seeds", @"quiet", @"design", @"Kim K."]];
+    FISStudent *jordan =[[FISStudent alloc]initWithName:@"Jordan" favoriteThings:@[@"pet GIFs", @"red Pandas", @"Penguin hockey", @"greek yogurt"]];
+    FISStudent *chris =[[FISStudent alloc]initWithName:@"Chris" favoriteThings:@[@"Game of Thrones", @"history", @"audio books", @"pizza"]];
+    FISStudent *sara = [[FISStudent alloc] initWithName:@"Sara" favoriteThings:@[@"Penny Dreadful", @"Harry Potter", @"grilled cheese", @"facebook"]];
+    
+    self.students = @[ismael, jordan, chris, sara];
     
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Potentially incomplete method implementation.
+
     // Return the number of sections.
-    return 0;
+    return (NSInteger)[self.students count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete method implementation.
+    FISStudent *currentStudent = self.students[section];
     // Return the number of rows in the section.
-    return 0;
+    return (NSInteger)[currentStudent.favoriteThings count];
+    
 }
 
-/*
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"expandingCell" forIndexPath:indexPath];
     
-    // Configure the cell...
+     //Configure the cell...
+    FISStudent *currentStudentCell = self.students[indexPath.section];
+    cell.textLabel.text = currentStudentCell.favoriteThings[indexPath.row];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%li", indexPath.row +1];
     
     return cell;
 }
-*/
 
-/*
+
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    
+    FISStudent *currentStudentName = self.students[section];
+    
+    return currentStudentName.name;
+
+}
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     // Return NO if you do not want the specified item to be editable.
     return YES;
 }
-*/
+
+
+-(NSInteger)tableView:(UITableView *)tableView indentationLevelForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 2;
+
+}
 
 /*
 // Override to support editing the table view.
